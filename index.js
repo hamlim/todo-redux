@@ -1,20 +1,15 @@
-import React from 'react';
-import {render} from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import todoApp from './reducers'
+import App from './components/App'
 
-import {createStore} from 'redux';
+let store = createStore(todoApp)
 
-import todo from './src/reducers/todo';
-
-const store = createStore(todo);
-
-import Application from './src/start';
-
-const renderFunc = () => {
-  render(
-    <Application state={store.getState()} />,
-    document.getElementById('mount')
-  );
-};
-
-store.subscribe(renderFunc);
-renderFunc();
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
